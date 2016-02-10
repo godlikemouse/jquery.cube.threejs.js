@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example 5x5 Cube</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.min.js"></script>
+		<script src="../src/jquery.cube.threejs.js"></script>
+		<script>
+			$(function(){
+				$(".cube").cube({
+					type: 5,
+					camera: {
+						x: 50,
+						y: 60,
+						z: 110
+					},
+					size: {
+						width: 50,
+						height: 50
+					},
+					color: [
+						0xff0000, //right
+						0xff8000, //left
+						0xffff00, //top
+						0xffffff, //bottom
+						0x0000ff, //front
+						0x00ff00 //back
+					],
+					background: 0xffffff,
+					animation: {
+						delay: 500
+					},
+					onTurn: function(cube, move){
+						console.info("Cube performing", move);
+					},
+					onComplete: function(cube){
+						console.info("All moves complete");
+					}
+				});
+			});
+		</script>
+
+		<style>
+			.cube {
+				width: 500px;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cube" data-moves="(U R U' R') (U R U' R') (U R U' R') (U R U' R') (U R U' R') (U R U' R')"></div>
+	</body>
+</html>
