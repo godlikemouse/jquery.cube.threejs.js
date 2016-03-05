@@ -25,7 +25,6 @@ $.fn.cube = function(options) {
     var _scene = null;
     var _camera = null;
     var _cube = [];
-    var _faceTexture = null;
     var _pivot = null;
 
     //extend default options
@@ -46,7 +45,8 @@ $.fn.cube = function(options) {
             0xffff00, //top
             0xffffff, //bottom
             0x0000ff, //front
-            0x00ff00 //back
+            0x00ff00, //back
+			0x000000 //cube color
         ],
         background: 0x1D1F20,
         animation: {
@@ -686,22 +686,95 @@ $.fn.cube = function(options) {
         return parsed;
     }
 
+	//method for creating a colored face texture based on another texture
+	function colorFaceTexture(width, height, color){
+
+		//optimize texture creation
+		if(colorFaceTexture[color])
+			return colorFaceTexture[color];
+
+		//create in memory canvas
+		var canvas = $("<canvas>").get(0);
+		canvas.width = width;
+		canvas.height = height;
+		var context = canvas.getContext("2d");
+
+		function _drawRoundRect(x, y, width, height, radius){
+			context.beginPath();
+			context.moveTo(x + radius, y);
+			context.lineTo(x + width - radius, y);
+			context.quadraticCurveTo(x + width, y, x + width, y + radius);
+			context.lineTo(x + width, y + height - radius);
+			context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+			context.lineTo(x + radius, y + height);
+			context.quadraticCurveTo(x, y + height, x, y + height - radius);
+			context.lineTo(x, y + radius);
+			context.quadraticCurveTo(x, y, x + radius, y);
+			context.closePath();
+			context.fill();
+		}
+
+		function _toHexColor(color){
+			var c = new THREE.Color(color);
+
+			var r = Number(c.r * 255).toString(16);
+			var g = Number(c.g * 255).toString(16);
+			var b = Number(c.b * 255).toString(16);
+
+			r = r.toString().length < 2 ? "0" + r : r;
+			g = g.toString().length < 2 ? "0" + g : g;
+			b = b.toString().length < 2 ? "0" + b : b;
+
+			return "#" + r + g + b;
+		}
+
+		//fill background with black
+		context.fillStyle = _toHexColor(options.color[options.color.length-1]);
+		context.fillRect(0, 0, width, height);
+
+		//draw cubit face
+		context.fillStyle = _toHexColor(color);
+		_drawRoundRect(1, 1, width-2, height-2, 3);
+
+		//create image from canvas
+		var image = new Image();
+		image.src = canvas.toDataURL();
+
+		//create new texture
+		var texture = new THREE.Texture(image);
+		texture.anisotropy = 4;
+		texture.needsUpdate = true;
+
+		colorFaceTexture[color] = texture;
+
+		return texture;
+	}
+
     //method for creating the cubit
     function createCubit(point){
 
         //create cubit face material
         var materials = [];
         for(var i=0; i<6; i++){
+
             var color = options.color[i];
-            var m = new THREE.MeshBasicMaterial( { color: color } );
-            m.map = _faceTexture;
+			var texture = colorFaceTexture(32, 32, color);
+
+            var m = new THREE.MeshBasicMaterial(
+				{
+					map: texture,
+					overdraw: 1
+				}
+			);
+
             materials.push(m);
         }
 
         //create cubit mesh model
         var material = new THREE.MeshFaceMaterial(materials);
+		var tessellation = _renderer.type == "Canvas" ? 3 : 1;
         if(!createCubit.box)
-            createCubit.box = new THREE.BoxGeometry(options.cubit.width, options.cubit.height, options.cubit.height);
+            createCubit.box = new THREE.BoxGeometry(options.cubit.width, options.cubit.height, options.cubit.height, tessellation, tessellation, tessellation);
         var cubit = new THREE.Mesh(createCubit.box, material);
 
         //position cubit
@@ -983,20 +1056,19 @@ $.fn.cube = function(options) {
     //constructor
     function constructor() {
 
-        //image texture
-        var img = new Image();
-        _faceTexture = new THREE.Texture(img);
-        _faceTexture.anisotropy = 4;
-        img.onload = function(){
-            _faceTexture.needsUpdate = true;
-        }
-        img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AIJFwERt5oJjgAAAHBJREFUWMPt17ERgDAMQ1GZwpmGzRMGYhg+BQkjOI1058KV3p0rhyRUGyTFWg5JyswbGIAKJoCemfcvAjrwUJcH6JKICdCORMR3gp0xwAADDDDAAAMMMMAAAwxYgFH8pDI7P0Br7ZR0FQLG7FTsfs9fuubdLARBVA4AAAAASUVORK5CYII=";
-
         //initialize scene
         _scene = new THREE.Scene();
         _camera = new THREE.PerspectiveCamera(75, _ref.width() / _ref.height(), 0.1, 1000);
 
-		_renderer = new THREE.WebGLRenderer({antialias: true});
+		try{
+			_renderer = new THREE.WebGLRenderer({antialias: true});
+			_renderer.type = "WebGL";
+		}
+		catch(ex){
+			_renderer = new THREE.CanvasRenderer();
+			_renderer.type = "Canvas";
+		}
+
         _renderer.setSize(_ref.width(), _ref.height());
         _renderer.setClearColor(options.background, 1);
 

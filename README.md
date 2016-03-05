@@ -41,7 +41,7 @@ The following table specifies the options available to be used in conjunction wi
 | camera.z | Specifies the camera's z position. (default 100) |
 | size.width | Controls the cube width in pixels. (default 60) |
 | size.height | Controls the cube height in pixels. (default 60) |
-| color | Array sepcifying edge colors. [ right, left, top, bottom, font, back ] (default [0xff0000, 0xff8000, 0xffff00, 0xffffff, 0x0000ff, 0x00ff00]) |
+| color | Array sepcifying edge colors. [ right, left, top, bottom, font, back, cube ] (default [0xff0000, 0xff8000, 0xffff00, 0xffffff, 0x0000ff, 0x00ff00, 0x000000]) |
 | background | Specifies the background color. (default 0x1d1f20) |
 | animation.delay | Specifies the animation delay in ms for turns. (default 250) |
 | onTurn | Callback function invoked when a turn or move is made. (function (cube, move)) |

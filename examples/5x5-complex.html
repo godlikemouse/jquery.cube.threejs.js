@@ -4,6 +4,8 @@
 		<title>Example 5x5 Cube</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.min.js"></script>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/renderers/CanvasRenderer.js"></script>
+		<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/renderers/Projector.js"></script>
 		<script src="../src/jquery.cube.threejs.js"></script>
 		<script>
 			$(function(){
@@ -22,11 +24,11 @@
 						0xff0000, //right
 						0xff8000, //left
 						0xffff00, //top
-						0xffffff, //bottom
+						0xf0f0f0, //bottom
 						0x0000ff, //front
-						0x00ff00 //back
+						0x00ff00, //back
+						0xffffff //cube color
 					],
-					background: 0xffffff,
 					animation: {
 						delay: 500
 					},
