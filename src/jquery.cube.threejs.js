@@ -56,6 +56,19 @@ $.fn.cube = function(options) {
         onComplete: $.noop
     }, options);
 
+	//method for resetting the cube back to its default state
+	_ref.reset = function(){
+
+		//remove all children from the scene
+		for(var i=_scene.children.length - 1; i >= 0; i--){
+			_scene.remove(_scene.children[i]);
+		}
+
+		//recreate cube
+		_cube = [];
+		createCube();
+	}
+
     //method for executing a single move/turn
     _ref.turn = function(move){
 

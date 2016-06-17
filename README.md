@@ -74,6 +74,7 @@ The following table specifies the API methods available for the cube plugin.
 | ------ | ----------- |
 | execute (moves) | Executes a set of moves specified by the moves string. (example: cube.execute("U R U' R'")) |
 | turn (move) | Executes a single move specified by the move string. (example: cube.turn("R")) |
+| reset | Resets the cube back to its initial state |
 
 Living object reference is availble by accessing the following:
 
