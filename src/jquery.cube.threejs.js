@@ -115,7 +115,7 @@ $.fn.cube = function(options) {
 
                 cubits.to = generateToArray(f1, "ccw");
 
-                if(options.type > 3)
+                if(options.type >= 3)
                     cubits.to = cubits.to.concat(generateToArray(f2, "ccw"));
 
                 rotation = -90;
@@ -133,7 +133,7 @@ $.fn.cube = function(options) {
 
                 cubits.to = generateToArray(f1, "cw");
 
-                if(options.type > 3)
+                if(options.type >= 3)
                     cubits.to = cubits.to.concat(generateToArray(f2, "cw"));
 
                 rotation = 90;
@@ -315,7 +315,7 @@ $.fn.cube = function(options) {
 
                 cubits.to = generateToArray(f1, "cw");
 
-                if(options.type > 3)
+                if(options.type >= 3)
                     cubits.to = cubits.to.concat(generateToArray(f2, "cw"));
 
                 rotation = -90;
@@ -333,7 +333,7 @@ $.fn.cube = function(options) {
 
                 cubits.to = generateToArray(f1, "ccw");
 
-                if(options.type > 3)
+                if(options.type >= 3)
                     cubits.to = cubits.to.concat(generateToArray(f2, "ccw"));
 
                 rotation = 90;
@@ -365,7 +365,7 @@ $.fn.cube = function(options) {
 
                 cubits.to = generateToArray(f1, "ccw");
 
-                if(options.type > 3)
+                if(options.type >= 3)
                     cubits.to = cubits.to.concat(generateToArray(f2, "ccw"));
 
                 rotation = 90;
@@ -383,7 +383,7 @@ $.fn.cube = function(options) {
 
                 cubits.to = generateToArray(f1, "cw");
 
-                if(options.type > 3)
+                if(options.type >= 3)
                     cubits.to = cubits.to.concat(generateToArray(f2, "cw"));
 
                 rotation = -90;
