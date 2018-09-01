@@ -1091,8 +1091,8 @@ $.fn.cube = function(options) {
         createCube();
 
         //setup camera
-        _camera.position.y = options.camera.x;
-        _camera.position.x = options.camera.y;
+        _camera.position.x = options.camera.x;
+        _camera.position.y = options.camera.y;
         _camera.position.z = options.camera.z;
 
         //set plugin
