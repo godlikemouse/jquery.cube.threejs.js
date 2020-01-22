@@ -394,7 +394,7 @@ $.fn.cube = function(options) {
                     property = "x";
                     var layer = parseInt(options.type/2);
                     cubits = getCubits(property, layer);
-                    cubits.to = generateToArray(cubits, "cw");
+                    cubits.to = generateToArray(cubits, "ccw");
                     rotation = 90;
                 }
 				break;
@@ -404,7 +404,7 @@ $.fn.cube = function(options) {
                     property = "x";
                     var layer = parseInt(options.type/2);
                     cubits = getCubits(property, layer);
-                    cubits.to = generateToArray(cubits, "ccw");
+                    cubits.to = generateToArray(cubits, "cw");
                     rotation = -90;
                 }
 				break;
