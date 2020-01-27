@@ -205,8 +205,8 @@ $.fn.cube = function(options) {
 
             case "d":
                 property = "y";
-				var f1 = getCubits("y", 0);
-                var f2 = getCubits("y", 1);
+				var f1 = getCubits("y", 1);
+                var f2 = getCubits("y", 0);
 
                 if(options.type == 3)
                     cubits = f1.concat(f2);
@@ -223,8 +223,8 @@ $.fn.cube = function(options) {
 
             case "d'":
 				property = "y";
-				var f1 = getCubits(property, 0);
-                var f2 = getCubits(property, 1);
+				var f1 = getCubits(property, 1);
+                var f2 = getCubits(property, 0);
 
                 if(options.type == 3)
                     cubits = f1.concat(f2);
@@ -355,8 +355,8 @@ $.fn.cube = function(options) {
 
             case "b":
 				property = "z";
-				var f1 = getCubits(property, 0);
-                var f2 = getCubits(property, 1);
+				var f1 = getCubits(property, 1);
+                var f2 = getCubits(property, 0);
 
                 if(options.type == 3)
                     cubits = f1.concat(f2);
@@ -373,8 +373,8 @@ $.fn.cube = function(options) {
 
             case "b'":
 				property = "z";
-				var f1 = getCubits(property, 0);
-                var f2 = getCubits(property, 1);
+				var f1 = getCubits(property, 1);
+                var f2 = getCubits(property, 0);
 
                 if(options.type == 3)
                     cubits = f1.concat(f2);
