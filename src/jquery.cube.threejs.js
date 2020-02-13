@@ -113,10 +113,10 @@ $.fn.cube = function(options) {
                 else
                     cubits = f1;
 
-                cubits.to = generateToArray(f1, "ccw");
+                cubits.to = generateToArray(f1, "cw");
 
                 if(options.type >= 3)
-                    cubits.to = cubits.to.concat(generateToArray(f2, "ccw"));
+                    cubits.to = cubits.to.concat(generateToArray(f2, "cw"));
 
                 rotation = -90;
 				break;
@@ -131,10 +131,10 @@ $.fn.cube = function(options) {
                 else
                     cubits = f1;
 
-                cubits.to = generateToArray(f1, "cw");
+                cubits.to = generateToArray(f1, "ccw");
 
                 if(options.type >= 3)
-                    cubits.to = cubits.to.concat(generateToArray(f2, "cw"));
+                    cubits.to = cubits.to.concat(generateToArray(f2, "ccw"));
 
                 rotation = 90;
 				break;
