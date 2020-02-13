@@ -52,11 +52,11 @@ The following table specifies the options available to be used in conjunction wi
 			delay: 500 //half a second per turn animation
 		},
 		colors: [0xff0000,
-				 0xff8000,
-				 0xffff00,
-				 0x000000, //black side instead of white
-				 0x0000ff,
-				 0x00ff00],
+			 0xff8000,
+			 0xffff00,
+			 0x000000, //black side instead of white
+			 0x0000ff,
+			 0x00ff00],
 		onTurn: function(cube, move){
 			console.info(move, "was made");
 		}
