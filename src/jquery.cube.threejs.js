@@ -751,12 +751,15 @@ $.fn.cube = function(options) {
 
 		//create image from canvas
 		var image = new Image();
-		image.src = canvas.toDataURL();
 
 		//create new texture
 		var texture = new THREE.Texture(image);
 		texture.anisotropy = 4;
-		texture.needsUpdate = true;
+        image.onload = function(){
+            texture.needsUpdate = true;   
+        }
+        
+        image.src = canvas.toDataURL();
 
 		colorFaceTexture[color] = texture;
 
@@ -776,7 +779,7 @@ $.fn.cube = function(options) {
             var m = new THREE.MeshBasicMaterial(
 				{
 					map: texture,
-					overdraw: 1
+					//overdraw: 1
 				}
 			);
 
@@ -784,7 +787,7 @@ $.fn.cube = function(options) {
         }
 
         //create cubit mesh model
-        var material = new THREE.MeshFaceMaterial(materials);
+        var material = materials;
 		var tessellation = _renderer.type == "Canvas" ? 3 : 1;
         if(!createCubit.box)
             createCubit.box = new THREE.BoxGeometry(options.cubit.width, options.cubit.height, options.cubit.height, tessellation, tessellation, tessellation);
@@ -990,7 +993,7 @@ $.fn.cube = function(options) {
         //paint faces
         $(cubits).each(function(){
             var cubit = this;
-            var materials = cubit.material.materials;
+            var materials = cubit.material;
 
             //determine cubit facing
             if(_pivot.rotation.x > 0){
